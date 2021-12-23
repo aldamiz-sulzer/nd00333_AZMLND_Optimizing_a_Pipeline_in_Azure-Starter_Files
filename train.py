@@ -1,14 +1,16 @@
-from sklearn.linear_model import LogisticRegression
+
 import argparse
 import os
 import numpy as np
-from sklearn.metrics import mean_squared_error
+import pandas as pd
 import joblib
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OneHotEncoder
-import pandas as pd
+from sklearn.metrics import mean_squared_error
+from sklearn.linear_model import LogisticRegression
 from azureml.core.run import Run
 from azureml.data.dataset_factory import TabularDatasetFactory
+from azureml.core import Workspace, Dataset
 
 def clean_data(data):
     # Dict for cleaning data
@@ -55,13 +57,23 @@ def main():
     # Data is located at:
     # "https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv"
 
-    ds = ### YOUR CODE HERE ###
+    # azureml-core of version 1.0.72 or higher is required
+    # azureml-dataprep[pandas] of version 1.1.34 or higher is required
+
+    subscription_id = '9b72f9e6-56c5-4c16-991b-19c652994860'
+    resource_group = 'aml-quickstarts-168196'
+    workspace_name = 'quick-starts-ws-168196'
+
+    workspace = Workspace(subscription_id, resource_group, workspace_name)
+
+    ds = Dataset.get_by_name(workspace, name='bankmarketing')
+    ds.to_pandas_dataframe()
     
     x, y = clean_data(ds)
 
     # TODO: Split data into train and test sets.
 
-    ### YOUR CODE HERE ###a
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=42)
 
     model = LogisticRegression(C=args.C, max_iter=args.max_iter).fit(x_train, y_train)
 
