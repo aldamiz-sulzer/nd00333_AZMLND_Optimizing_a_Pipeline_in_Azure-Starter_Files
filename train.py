@@ -60,9 +60,9 @@ def main():
     # azureml-core of version 1.0.72 or higher is required
     # azureml-dataprep[pandas] of version 1.1.34 or higher is required
 
-    subscription_id = '9b72f9e6-56c5-4c16-991b-19c652994860'
-    resource_group = 'aml-quickstarts-168196'
-    workspace_name = 'quick-starts-ws-168196'
+    subscription_id = 'b968fb36-f06a-4c76-a15f-afab68ae7667'
+    resource_group = 'aml-quickstarts-172594'
+    workspace_name = 'quick-starts-ws-172594'
 
     workspace = Workspace(subscription_id, resource_group, workspace_name)
 
