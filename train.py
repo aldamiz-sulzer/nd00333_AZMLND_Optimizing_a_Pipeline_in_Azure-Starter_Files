@@ -65,7 +65,7 @@ def main():
 
     #workspace = Workspace(subscription_id, resource_group, workspace_name)
 
-    ws = Workspace.get(name="quick-starts-ws-187152", subscription_id="1b944a9b-fdae-4f97-aeb1-b7eea0beac53", resource_group="aml-quickstarts-187152")
+    ws = Workspace.get(name="quick-starts-ws-190042", subscription_id="3e42d11f-d64d-4173-af9b-12ecaa1030b3", resource_group="aml-quickstarts-190042")
 
     ds = Dataset.get_by_name(ws, name='bankmarketing')
     ds.to_pandas_dataframe()
