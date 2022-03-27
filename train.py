@@ -39,6 +39,11 @@ def clean_data(data):
     return x_df, y_df
 
 def main():
+
+    subscription = '5a4ab2ba-6c51-4805-8155-58759ad589d8'
+    rg = 'aml-quickstarts-190075'
+    workspace = 'quick-starts-ws-190075'
+
     # Add arguments to script
     parser = argparse.ArgumentParser()
 
@@ -59,17 +64,16 @@ def main():
     # azureml-core of version 1.0.72 or higher is required
     # azureml-dataprep[pandas] of version 1.1.34 or higher is required
 
-    subscription = '5a4ab2ba-6c51-4805-8155-58759ad589d8'
-    rg = 'aml-quickstarts-190075'
-    workspace = 'quick-starts-ws-190075'
-
-    #ws = Workspace.from_config()
-    #datastore = ws.get_default_datastore()
     ws = Workspace.get(name=workspace, subscription_id=subscription, resource_group=rg)
+    
     ds= TabularDatasetFactory.from_delimited_files(path = "https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv")
-    #ds = Dataset.Tabular.from_delimited_files(path = "https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv")
-    #ds = Dataset.get_by_name(ws, name='bankmarketing')
-    #ds.to_pandas_dataframe()
+    
+    # register tabular dataset
+    ds = ds.register(workspace=ws, 
+                    name='bankmarketing',
+                    description='Project 1 dataset',
+                    tags={'format':'CSV'})
+    
     ds.to_pandas_dataframe()
     
     x, y = clean_data(ds)
