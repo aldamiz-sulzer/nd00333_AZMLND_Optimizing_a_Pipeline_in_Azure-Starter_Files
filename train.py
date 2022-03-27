@@ -64,15 +64,15 @@ def main():
     # azureml-core of version 1.0.72 or higher is required
     # azureml-dataprep[pandas] of version 1.1.34 or higher is required
 
-    ws = Workspace.get(name=workspace, subscription_id=subscription, resource_group=rg)
+    #ws = Workspace.get(name=workspace, subscription_id=subscription, resource_group=rg)
     
     ds= TabularDatasetFactory.from_delimited_files(path = "https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv")
     
     # register tabular dataset
-    ds = ds.register(workspace=ws, 
-                    name='bankmarketing',
-                    description='Project 1 dataset',
-                    tags={'format':'CSV'})
+    #ds = ds.register(workspace=ws, 
+    #                name='bankmarketing',
+    #                description='Project 1 dataset',
+    #                tags={'format':'CSV'})
     
     ds.to_pandas_dataframe()
     
