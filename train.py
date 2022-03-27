@@ -59,15 +59,17 @@ def main():
     # azureml-core of version 1.0.72 or higher is required
     # azureml-dataprep[pandas] of version 1.1.34 or higher is required
 
-    #subscription_id = 'b968fb36-f06a-4c76-a15f-afab68ae7667'
-    #resource_group = 'aml-quickstarts-172594'
-    #workspace_name = 'quick-starts-ws-172594'
+    subscription = '5a4ab2ba-6c51-4805-8155-58759ad589d8'
+    rg = 'aml-quickstarts-190075'
+    workspace = 'quick-starts-ws-190075'
 
-    #workspace = Workspace(subscription_id, resource_group, workspace_name)
-
-    ws = Workspace.get(name="quick-starts-ws-190049", subscription_id="a24a24d5-8d87-4c8a-99b6-91ed2d2df51f", resource_group="aml-quickstarts-190049")
-
-    ds = Dataset.get_by_name(ws, name='bankmarketing')
+    #ws = Workspace.from_config()
+    #datastore = ws.get_default_datastore()
+    ws = Workspace.get(name=workspace, subscription_id=subscription, resource_group=rg)
+    ds= TabularDatasetFactory.from_delimited_files(path = "https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv")
+    #ds = Dataset.Tabular.from_delimited_files(path = "https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv")
+    #ds = Dataset.get_by_name(ws, name='bankmarketing')
+    #ds.to_pandas_dataframe()
     ds.to_pandas_dataframe()
     
     x, y = clean_data(ds)
